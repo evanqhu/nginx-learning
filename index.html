@@ -7,6 +7,7 @@
   <meta name="theme-color" content="#071a12" />
   <title>Nginx Path · 把每一次请求看清楚</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="course.css" />
 </head>
 <body>
   <div class="noise"></div>
@@ -20,7 +21,8 @@
       <a href="#overview" class="active"><span>01</span>请求经过哪里</a>
       <a href="#lab"><span>02</span>配置实验场</a>
       <a href="#roadmap"><span>03</span>核心能力图谱</a>
-      <a href="#quiz"><span>04</span>快速挑战</a>
+      <a href="#course"><span>04</span>12 节完整课程</a>
+      <a href="#quiz"><span>05</span>快速挑战</a>
     </nav>
     <div class="progress-card">
       <div class="progress-head"><span>今日进度</span><b id="progressText">0%</b></div>
@@ -54,6 +56,15 @@
         </div>
         <div class="terminal-log"><span>200</span> 18ms · proxy_pass matched · cache BYPASS</div>
       </div>
+    </section>
+
+    <section class="course-catalog section" id="course">
+      <div class="section-title">
+        <div><span>04 / FULL COURSE</span><h2>12 节课，从请求到生产</h2></div>
+        <p>每节课都包含原理、可运行配置、动手实验、自测题和明确的完成标准。</p>
+      </div>
+      <div class="course-summary"><b id="courseDone">0 / 12</b><span>已完成课节</span><i><em id="courseProgress"></em></i></div>
+      <div class="course-list" id="courseCatalog"></div>
     </section>
 
     <section class="lab section" id="lab">
@@ -111,6 +122,8 @@
     </section>
     <footer><b>Nginx Path</b><span>Understand the path. Control the traffic.</span><a href="#top">回到顶部 ↑</a></footer>
   </main>
+  <section class="lesson-view" id="lessonView" aria-hidden="true"></section>
   <script src="app.js"></script>
+  <script src="course.js"></script>
 </body>
 </html>
