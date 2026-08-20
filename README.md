@@ -12,4 +12,6 @@ python3 -m http.server 8000
 
 生产地址：<https://nginx.evanqhu.me>
 
+Pages 地址：<https://nginx-learning-git.pages.dev>
+
 站点通过 GitHub `main` 分支自动部署到 Cloudflare Pages。
