@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="通过可视化请求链路与配置实验，从零掌握 Nginx。" />
+  <meta name="theme-color" content="#071a12" />
+  <title>Nginx Path · 把每一次请求看清楚</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <aside class="sidebar">
+    <a class="brand" href="#top" aria-label="Nginx Path 首页">
+      <span class="brand-mark">N</span>
+      <span><b>Nginx Path</b><small>交互式学习路径</small></span>
+    </a>
+    <nav aria-label="课程目录">
+      <p class="nav-label">LEARNING PATH</p>
+      <a href="#overview" class="active"><span>01</span>请求经过哪里</a>
+      <a href="#lab"><span>02</span>配置实验场</a>
+      <a href="#roadmap"><span>03</span>核心能力图谱</a>
+      <a href="#quiz"><span>04</span>快速挑战</a>
+    </nav>
+    <div class="progress-card">
+      <div class="progress-head"><span>今日进度</span><b id="progressText">0%</b></div>
+      <div class="progress-track"><i id="progressBar"></i></div>
+      <small>完成实验与挑战，进度会保存在本机。</small>
+    </div>
+  </aside>
+
+  <main id="top">
+    <header class="topbar">
+      <span class="status"><i></i> LAB ONLINE</span>
+      <button class="reset" id="resetProgress">重置进度</button>
+    </header>
+
+    <section class="hero" id="overview">
+      <div class="eyebrow">NGINX / FROM ZERO TO PRODUCTION</div>
+      <h1>别背配置。<br><em>看懂请求怎么走。</em></h1>
+      <p>从浏览器发出一次请求，跟着它穿过监听端口、匹配规则、静态资源与上游服务。你会真正理解每一行配置为什么存在。</p>
+      <div class="hero-actions">
+        <a class="primary" href="#lab">进入配置实验场 <span>→</span></a>
+        <a class="secondary" href="#roadmap">查看学习路径</a>
+      </div>
+      <div class="terminal" aria-label="Nginx 状态终端">
+        <div class="terminal-bar"><span></span><span></span><span></span><b>request.trace</b></div>
+        <div class="trace">
+          <div class="node done"><i>1</i><b>Client</b><small>GET /api/users</small></div>
+          <div class="beam"><span></span></div>
+          <div class="node current"><i>2</i><b>Nginx</b><small>location /api/</small></div>
+          <div class="beam"><span></span></div>
+          <div class="node"><i>3</i><b>Upstream</b><small>127.0.0.1:3000</small></div>
+        </div>
+        <div class="terminal-log"><span>200</span> 18ms · proxy_pass matched · cache BYPASS</div>
+      </div>
+    </section>
+
+    <section class="lab section" id="lab">
+      <div class="section-title">
+        <div><span>02 / HANDS-ON</span><h2>配置实验场</h2></div>
+        <p>选择一个真实场景，观察配置与请求结果如何一起变化。</p>
+      </div>
+      <div class="scenario-tabs" role="tablist">
+        <button class="active" data-scenario="static">静态站点</button>
+        <button data-scenario="proxy">反向代理</button>
+        <button data-scenario="balance">负载均衡</button>
+        <button data-scenario="cache">缓存策略</button>
+      </div>
+      <div class="lab-grid">
+        <div class="code-panel">
+          <div class="panel-head"><span>nginx.conf</span><button id="copyConfig">复制配置</button></div>
+          <pre><code id="configCode"></code></pre>
+        </div>
+        <div class="result-panel">
+          <div class="panel-head"><span>REQUEST SIMULATOR</span><b id="serverState">● READY</b></div>
+          <label>请求地址</label>
+          <div class="url-box"><span>GET</span><input id="requestUrl" value="https://demo.local/" aria-label="请求地址" /></div>
+          <button class="send" id="sendRequest">发送请求 <span>↗</span></button>
+          <div class="response" id="responseBox">
+            <div><span>STATUS</span><b>200 OK</b></div>
+            <div><span>HANDLER</span><b>static file</b></div>
+            <div><span>LATENCY</span><b>4 ms</b></div>
+          </div>
+          <p class="explain" id="scenarioExplain"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="roadmap section" id="roadmap">
+      <div class="section-title">
+        <div><span>03 / KNOWLEDGE MAP</span><h2>从能用到可靠</h2></div>
+        <p>四个阶段，建立可以用于生产环境的完整心智模型。</p>
+      </div>
+      <div class="lesson-grid">
+        <article><span class="lesson-no">01</span><div class="lesson-icon">↳</div><h3>请求匹配</h3><p>server、location 与优先级，读懂请求最终落在哪里。</p><ul><li>listen 与 server_name</li><li>location 匹配顺序</li><li>root 与 alias</li></ul><button class="complete" data-task="lesson1">标记完成</button></article>
+        <article><span class="lesson-no">02</span><div class="lesson-icon">⇄</div><h3>反向代理</h3><p>正确传递路径、请求头和客户端真实信息。</p><ul><li>proxy_pass 路径规则</li><li>Forwarded Headers</li><li>超时与重试</li></ul><button class="complete" data-task="lesson2">标记完成</button></article>
+        <article><span class="lesson-no">03</span><div class="lesson-icon">⌁</div><h3>性能与缓存</h3><p>用压缩、缓存和连接复用降低延迟与带宽。</p><ul><li>gzip / brotli</li><li>Cache-Control</li><li>keepalive</li></ul><button class="complete" data-task="lesson3">标记完成</button></article>
+        <article><span class="lesson-no">04</span><div class="lesson-icon">⌾</div><h3>稳定与排障</h3><p>从日志和状态码快速定位线上请求问题。</p><ul><li>access / error log</li><li>限流与熔断</li><li>零停机重载</li></ul><button class="complete" data-task="lesson4">标记完成</button></article>
+      </div>
+    </section>
+
+    <section class="quiz section" id="quiz">
+      <div class="quiz-copy"><span>04 / CHECKPOINT</span><h2>一次请求的最后一问</h2><p>当请求 <code>/assets/logo.png</code> 同时匹配 <code>location /</code> 与 <code>location /assets/</code>，哪一条前缀规则会被选中？</p></div>
+      <div class="answers" id="answers">
+        <button data-correct="false"><i>A</i>location /</button>
+        <button data-correct="true"><i>B</i>location /assets/</button>
+        <button data-correct="false"><i>C</i>两条都会执行</button>
+        <p id="quizFeedback">选择你的答案</p>
+      </div>
+    </section>
+    <footer><b>Nginx Path</b><span>Understand the path. Control the traffic.</span><a href="#top">回到顶部 ↑</a></footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
